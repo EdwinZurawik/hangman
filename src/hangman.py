@@ -25,10 +25,12 @@ class Hangman():
                 self.guessed_letters[index] = letter
         if letter not in self.guessed_letters:
             self.misses += 1
+            if self.misses > len(ha.hangman_stages) - 1:
+                self.misses = len(ha.hangman_stages) - 1
 
     def select_word(self):
         if not isinstance(self.words, list):
-            raise ValueError(f"Method was expecting a list, but got {type(words)} instead.")
+            raise ValueError(f"Method was expecting a list, but got {type(self.words)} instead.")
         if not self.words:
             raise ValueError("Words list should not be empty.")
         if not all(isinstance(word, str) for word in self.words):
@@ -53,14 +55,14 @@ def draw_game_table(hangman):
 
 def print_end_game_communicate(hangman):
     if "_" not in hangman.guessed_letters:
-        print(f"Congratulations! You have guessed a word: \"{hangman.selected_word}\".")
+        print(f"Congratulations! You have guessed a word: \"{hangman.selected_word.upper()}\".")
     else:
-        print(f"You have lost, the word was {hangman.selected_word.upper()}. But don't worry, you can try one more time!")
+        print(f"You have lost, the word was \"{hangman.selected_word.upper()}\". But don't worry, you can try one more time!\n")
 
 
 def main():
     exit_program = False
-    words_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "words.csv")
+    words_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "word.csv")
     words = helpers.read_csv(words_path)
 
     while not exit_program:
@@ -70,7 +72,12 @@ def main():
         if choice == "1":
             end_game = False
             hangman = Hangman(words)
-            hangman.select_word()
+            try:
+                hangman.select_word()
+            except ValueError:
+                print("Program is unable to read list of words. Please check {words_path}.")
+                input("\nPress any key to exit program...")
+                break
             draw_game_table(hangman)
             while not end_game:
                 try:
