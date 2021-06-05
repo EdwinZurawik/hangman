@@ -62,7 +62,7 @@ def print_end_game_communicate(hangman):
 
 def main():
     exit_program = False
-    words_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "word.csv")
+    words_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "words.csv")
     words = helpers.read_csv(words_path)
 
     while not exit_program:
@@ -75,7 +75,7 @@ def main():
             try:
                 hangman.select_word()
             except ValueError:
-                print("Program is unable to read list of words. Please check {words_path}.")
+                print(f"Program is unable to read list of words. Please check {words_path}.")
                 input("\nPress any key to exit program...")
                 break
             draw_game_table(hangman)
