@@ -11,7 +11,7 @@ def test_select_word_from_one_element_list() -> None:
     hangman = Hangman(words_list)
 
     hangman.select_word()
-    
+
     assert hangman.selected_word == words_list[0]
     assert len(hangman.guessed_letters) == len(hangman.selected_word)
     assert all([letter == "_" for letter in hangman.guessed_letters])
@@ -142,7 +142,7 @@ def test_check_if_game_ended_lost_game() -> None:
     for stage in hangman_stages:
         hangman.guess_a_letter("a")
 
-    assert hangman.check_if_game_ended() == True
+    assert hangman.check_if_game_ended() is True
 
 
 def test_check_if_game_ended_win_game() -> None:
@@ -153,7 +153,7 @@ def test_check_if_game_ended_win_game() -> None:
     for letter in "word":
         hangman.guess_a_letter(letter)
 
-    assert hangman.check_if_game_ended() == True
+    assert hangman.check_if_game_ended() is True
 
 
 def test_check_if_game_ended_game_started() -> None:
@@ -161,7 +161,7 @@ def test_check_if_game_ended_game_started() -> None:
     hangman = Hangman(words_list)
     hangman.select_word()
 
-    assert hangman.check_if_game_ended() == False
+    assert hangman.check_if_game_ended() is False
 
 
 def test_check_if_game_ended_game_in_play() -> None:
@@ -172,5 +172,4 @@ def test_check_if_game_ended_game_in_play() -> None:
     for letter in "wo":
         hangman.guess_a_letter(letter)
 
-    assert hangman.check_if_game_ended() == False
-
+    assert hangman.check_if_game_ended() is False

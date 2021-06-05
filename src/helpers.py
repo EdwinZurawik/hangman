@@ -1,5 +1,6 @@
 import csv
 
+
 def read_csv(filename):
     data = []
     try:
@@ -9,6 +10,6 @@ def read_csv(filename):
                 data.append(str(row[0]).lower().strip())
     except FileNotFoundError:
         data = []
-        print(f"Couldn't locate the file: {filename}. " \
-                "Please check the filename and path.")
+        print(f"Couldn't locate the file: {filename}. "
+              "Please check the filename and path.")
     return data

@@ -10,7 +10,8 @@ def test_read_csv_not_existing_file():
 
 
 def test_read_csv_correct_file():
-    filepath = os.path.join(os.path.dirname(os.path.dirname(__file__)), "test.csv")
+    filepath = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), "test.csv")
     data = ["first", "second", "third"]
 
     create_file(filepath, data)
@@ -20,7 +21,8 @@ def test_read_csv_correct_file():
 
 
 def test_read_csv_empty_file():
-    filepath = os.path.join(os.path.dirname(os.path.dirname(__file__)), "test.csv")
+    filepath = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), "test.csv")
     data = []
 
     create_file(filepath, data)
@@ -36,4 +38,3 @@ def create_file(filepath, data):
         for item in data:
             row = [item]
             csv_writer.writerow(row)
-
