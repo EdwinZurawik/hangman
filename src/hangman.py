@@ -1,11 +1,13 @@
 import random
+import os
 from src import hangman_art as ha
+from src import helpers
 
-words = ['first', 'second', 'four']
 
 class Hangman():
 
-    def __init__(self):
+    def __init__(self, words):
+        self.words = words
         self.selected_word = ""
         self.guessed_letters = []
         self.misses = 0
@@ -24,14 +26,14 @@ class Hangman():
         if letter not in self.guessed_letters:
             self.misses += 1
 
-    def select_word(self, words):
-        if not isinstance(words, list):
+    def select_word(self):
+        if not isinstance(self.words, list):
             raise ValueError(f"Method was expecting a list, but got {type(words)} instead.")
-        if not words:
+        if not self.words:
             raise ValueError("Words list should not be empty.")
-        if not all(isinstance(word, str) for word in words):
+        if not all(isinstance(word, str) for word in self.words):
             raise ValueError(f"Expected a list of type {str}. It should not contain elements of other types.")
-        self.selected_word = random.choice(words)
+        self.selected_word = random.choice(self.words)
         self.guessed_letters = ["_" for letter in self.selected_word]
 
     def check_if_game_ended(self):
@@ -53,12 +55,13 @@ def print_end_game_communicate(hangman):
     if "_" not in hangman.guessed_letters:
         print(f"Congratulations! You have guessed a word: \"{hangman.selected_word}\".")
     else:
-        print(f"You have lost. But don't worry, you can try one more time!")
+        print(f"You have lost, the word was {hangman.selected_word.upper()}. But don't worry, you can try one more time!")
 
 
 def main():
-    end_game = False
     exit_program = False
+    words_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "words.csv")
+    words = helpers.read_csv(words_path)
 
     while not exit_program:
         draw_menu()
@@ -66,8 +69,8 @@ def main():
 
         if choice == "1":
             end_game = False
-            hangman = Hangman()
-            hangman.select_word(words)
+            hangman = Hangman(words)
+            hangman.select_word()
             draw_game_table(hangman)
             while not end_game:
                 try:
@@ -77,7 +80,7 @@ def main():
                 draw_game_table(hangman)
                 end_game = hangman.check_if_game_ended()
             print_end_game_communicate(hangman)
-            input("Press any key to proceed..")
+            input("Press any key to continue.")
         elif choice == "2":
             exit_program = True
 
