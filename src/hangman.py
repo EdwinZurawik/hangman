@@ -1,5 +1,5 @@
 import random
-import hangman_art as ha
+from src import hangman_art as ha
 
 words = ['first', 'second', 'four']
 
@@ -12,6 +12,12 @@ class Hangman():
         print(ha.hangman_title, ha.hangman_stages[-1])
 
     def select_word(self, words):
+        if not isinstance(words, list):
+            raise ValueError(f"Method was expecting a list, but got {type(words)} instead.")
+        if not words:
+            raise ValueError("Words list should not be empty.")
+        if not all(isinstance(word, str) for word in words):
+            raise ValueError(f"Expected a list of type {str}. It should not contain elements of other types.")
         selected_word = random.choice(words)
         return selected_word
 
