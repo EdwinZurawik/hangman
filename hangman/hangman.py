@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import random
 import os
-from src import hangman_art as ha
-from src import helpers
+from hangman import hangman_art as ha
+from hangman import helpers
 
 
 class Hangman():

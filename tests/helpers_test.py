@@ -1,6 +1,6 @@
 import os
 import csv
-from src import helpers
+from hangman import helpers
 
 
 def test_read_csv_not_existing_file():

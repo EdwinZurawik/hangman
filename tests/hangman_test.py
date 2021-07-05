@@ -1,8 +1,8 @@
 import pytest
 
 
-from src.hangman import Hangman
-from src.hangman_art import hangman_stages
+from hangman.hangman import Hangman
+from hangman.hangman_art import hangman_stages
 
 
 # test Hangman.select_word()
